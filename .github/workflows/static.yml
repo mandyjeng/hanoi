@@ -28,10 +28,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # 刪除了 cache: 'npm' 以避免 image_8765e3.png 中的錯誤
+          # 注意：這裡刪除了 cache: 'npm'，避免找不到 lock 檔的錯誤
 
       - name: Install dependencies
-        # 使用 install 即使沒有 lock 檔也能運作
         run: npm install
 
       - name: Build
@@ -43,8 +42,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # 確保 Vite 編譯產物在 dist 資料夾
-          path: './dist'
+          path: './dist' # Vite 編譯後的資料夾
 
       - name: Deploy to GitHub Pages
         id: deployment

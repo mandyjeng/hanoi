@@ -1,4 +1,3 @@
-# 修正後的 Vite 專案部署腳本
 name: Deploy Vite site to Pages
 
 on:
@@ -29,9 +28,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          # 刪除了 cache: 'npm' 以避免 image_8765e3.png 中的錯誤
 
       - name: Install dependencies
+        # 使用 install 即使沒有 lock 檔也能運作
         run: npm install
 
       - name: Build
@@ -43,7 +43,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # 重要：Vite 編譯後的產物在 dist 資料夾，不是根目錄 '.'
+          # 確保 Vite 編譯產物在 dist 資料夾
           path: './dist'
 
       - name: Deploy to GitHub Pages

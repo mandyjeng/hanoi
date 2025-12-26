@@ -620,6 +620,27 @@ const GuideView = ({ isSnoopy, isColorful, cardClass }: any) => {
           ))}
         </div>
       </section>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-bold flex items-center gap-2">
+          <Icons.MapPin /> 緊急聯絡
+        </h2>
+        <div className={`${cardClass} p-5 space-y-4`}>
+          <div className="space-y-3">
+            {EMERGENCY_CONTACTS.map((contact, i) => (
+              <div key={i} className="flex justify-between items-center text-sm border-b border-dashed pb-2 last:border-0">
+                <div>
+                  <div className="font-bold">{contact.title}</div>
+                  {contact.note && <div className="text-xs opacity-50">{contact.note}</div>}
+                </div>
+                <a href={`tel:${contact.phone}`} className={`px-3 py-1 rounded-full font-bold text-xs ${isColorful ? 'bg-[#4ECDC4] text-white' : 'bg-[#2d2d2d] text-white'}`}>
+                  {contact.phone}
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
@@ -682,25 +703,6 @@ const ToolsView = ({ isSnoopy, isColorful, cardClass }: any) => {
                  </div>
               </div>
            </div>
-        </div>
-      </div>
-
-      <div className={`${cardClass} p-5 space-y-4`}>
-        <h2 className="font-bold flex items-center gap-2">
-          <Icons.MapPin /> 緊急聯絡
-        </h2>
-        <div className="space-y-3">
-          {EMERGENCY_CONTACTS.map((contact, i) => (
-            <div key={i} className="flex justify-between items-center text-sm border-b border-dashed pb-2 last:border-0">
-              <div>
-                <div className="font-bold">{contact.title}</div>
-                {contact.note && <div className="text-xs opacity-50">{contact.note}</div>}
-              </div>
-              <a href={`tel:${contact.phone}`} className={`px-3 py-1 rounded-full font-bold text-xs ${isColorful ? 'bg-[#4ECDC4] text-white' : 'bg-[#2d2d2d] text-white'}`}>
-                {contact.phone}
-              </a>
-            </div>
-          ))}
         </div>
       </div>
     </div>

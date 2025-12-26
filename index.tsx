@@ -543,6 +543,32 @@ const ItineraryView = ({ isSnoopy, isColorful, cardClass, tagColor }: any) => {
 const GuideView = ({ isSnoopy, isColorful, cardClass }: any) => {
   return (
     <div className="space-y-6 animate-fade-in">
+      {/* Google Drive Files Section */}
+      <section className="space-y-3">
+        <h2 className="text-lg font-bold flex items-center gap-2">
+          <Icons.Cloud /> 雲端備份
+        </h2>
+        <a 
+          href="https://drive.google.com/drive/folders/1ZvWoNzTgL89bVXe1q3fvr2Nh8VaGJUHO" 
+          target="_blank" 
+          rel="noreferrer"
+          className={`${cardClass} p-4 flex items-center justify-between group transition-all hover:translate-y-[-2px] active:translate-y-0`}
+        >
+          <div className="flex items-center gap-3">
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isColorful ? 'bg-[#FFFBE6] border-2 border-[#333]' : 'bg-gray-100 border border-[#2d2d2d]'}`}>
+               <Icons.Clipboard />
+            </div>
+            <div>
+              <p className="font-bold text-sm">重要文件雲端備份</p>
+              <p className="text-[10px] opacity-50 uppercase font-black">E-Visa / Insurance / Booking</p>
+            </div>
+          </div>
+          <div className="opacity-40 group-hover:opacity-100 transition-opacity">
+            <Icons.ExternalLink />
+          </div>
+        </a>
+      </section>
+
       <section className="space-y-3">
         <h2 className="text-lg font-bold flex items-center gap-2">
           <Icons.Plane /> 航班資訊

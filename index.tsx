@@ -594,15 +594,67 @@ const GuideView = ({ isSnoopy, isColorful, cardClass }: any) => {
           <Icons.DogHouse /> 飯店住宿
         </h2>
         {HOTELS.map((hotel, i) => (
-          <div key={i} className={`${cardClass} p-4 text-sm`}>
-            <h3 className="font-bold mb-1">{hotel.name}</h3>
-            <div className="opacity-80 mb-2">{hotel.address}</div>
-            <div className="grid grid-cols-2 gap-2 text-xs opacity-70">
-              <div>日期: {hotel.dates}</div>
-              <div>房型: {hotel.roomType}</div>
-              {hotel.bookingRef && <div>單號: {hotel.bookingRef}</div>}
-              {hotel.pin && <div>PIN: {hotel.pin}</div>}
+          <div key={i} className={`${cardClass} p-4 text-sm space-y-2 relative overflow-hidden`}>
+            {/* Background Decorative Icon */}
+            <div className="absolute -right-2 -bottom-2 opacity-5 scale-150 rotate-12 pointer-events-none">
+              <Icons.DogHouse />
             </div>
+
+            <div className="flex justify-between items-start gap-2 relative z-10">
+              <h3 className="font-bold text-base leading-tight">{hotel.name}</h3>
+              {hotel.googleMapLink && (
+                <a href={hotel.googleMapLink} target="_blank" rel="noreferrer" className={`p-1.5 rounded-full transition-colors ${isColorful ? 'bg-[#E3F2FD] text-[#4285F4] border border-black shadow-[1px_1px_0_black]' : 'bg-gray-100 border border-black shadow-[1px_1px_0_black]'}`}>
+                  <Icons.MapPin />
+                </a>
+              )}
+            </div>
+            
+            <div className="opacity-70 text-xs flex items-center gap-1">
+               <Icons.MapPin /> {hotel.address}
+            </div>
+
+            <div className="grid grid-cols-1 gap-1.5 pt-2 border-t border-dashed border-gray-200">
+               <div className="flex justify-between items-baseline">
+                 <span className="opacity-50 text-[10px] font-bold uppercase">入住期間</span>
+                 <span className="font-bold">{hotel.dates}</span>
+               </div>
+               <div className="flex justify-between items-baseline">
+                 <span className="opacity-50 text-[10px] font-bold uppercase">房型</span>
+                 <span className="font-bold text-right">{hotel.roomType}</span>
+               </div>
+               {hotel.guestName && (
+                 <div className="flex justify-between items-baseline">
+                   <span className="opacity-50 text-[10px] font-bold uppercase">入住人</span>
+                   <span className="font-medium">{hotel.guestName}</span>
+                 </div>
+               )}
+               {hotel.breakfast && (
+                 <div className="flex justify-between items-baseline">
+                   <span className="opacity-50 text-[10px] font-bold uppercase">早餐</span>
+                   <span className="font-medium text-[#4ECDC4]">{hotel.breakfast}</span>
+                 </div>
+               )}
+               {hotel.price && (
+                 <div className="flex justify-between items-baseline">
+                   <span className="opacity-50 text-[10px] font-bold uppercase">價格</span>
+                   <span className="font-black text-[#FF6B6B]">{hotel.price}</span>
+                 </div>
+               )}
+            </div>
+
+            {(hotel.bookingRef || hotel.membership || hotel.pin) && (
+              <div className={`mt-2 p-2 rounded-lg text-[10px] ${isColorful ? 'bg-[#FFF9E6] border border-[#333]' : 'bg-gray-50 border border-[#2d2d2d]'} space-y-1 relative z-10`}>
+                {hotel.bookingRef && <div className="flex justify-between"><span>預訂單號</span><span className="font-bold">{hotel.bookingRef}</span></div>}
+                {hotel.pin && <div className="flex justify-between"><span>PIN</span><span className="font-bold">{hotel.pin}</span></div>}
+                {hotel.membership && (
+                  <div className="mt-1 pt-1 border-t border-black/10 flex flex-wrap gap-1">
+                    <span className={`px-1.5 py-0.5 rounded font-black ${isColorful ? 'bg-[#FFD93D] text-[#333]' : 'bg-[#2d2d2d] text-white'}`}>
+                      {hotel.membership}
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         ))}
       </section>

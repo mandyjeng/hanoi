@@ -28,7 +28,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # 注意：這裡刪除了 cache: 'npm'，避免找不到 lock 檔的錯誤
 
       - name: Install dependencies
         run: npm install
@@ -42,7 +41,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' # Vite 編譯後的資料夾
+          # 這是最關鍵的一行，必須只上傳編譯後的 dist
+          path: './dist'
 
       - name: Deploy to GitHub Pages
         id: deployment

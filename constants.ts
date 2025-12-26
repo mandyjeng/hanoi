@@ -128,7 +128,7 @@ export const ALL_SPOTS: SpotLocation[] = [
     category: Category.FOOD,
     description: '位於大教堂旁的傳奇小吃店，以枕頭餃 (Bánh Gối) 與方型蟹肉春捲 (Nem Cua Bể) 聞名。營業至 22:00。',
     tags: ['必吃', '傳統小吃', '大教堂旁'],
-    googleMapLink: 'https://maps.app.goo.gl/3ZJ8qM1tV798P6S67',
+    googleMapLink: 'https://maps.app.goo.gl/HQaZEsM5MreabLE38',
     address: '52 Lý Quốc Sư, Hoàn Kiếm'
   },
   {
@@ -164,7 +164,7 @@ export const ALL_SPOTS: SpotLocation[] = [
     address: '54 Hàng Bè, Hoàn Kiếm'
   },
   {
-    name: 'Culcat (精緻設計服飾)',
+    name: 'Culcat (貓咪服飾)',
     category: Category.SHOPPING,
     description: '主打現代設計風格的精緻服飾店。風格獨特且充滿創意。',
     tags: ['必逛', '設計服裝'],
@@ -424,7 +424,7 @@ export const ITINERARY_DATA: DayItinerary[] = [
         tags: ['美食'], locationUrl: ''
       },
       {
-        id: 'd4-1-5', time: '10:00', category: Category.ACTIVITY, name: '渡假村活動最後體驗', 
+        id: 'd4-1-5', time: '10:00', category: Category.ACTIVITY, name: '渡假村活動', 
         description: '退房前再次享受飯店設施，或租借腳踏車在渡假村周邊漫遊。',
         tags: ['悠閒', '飯店活動'], 
         locationUrl: 'https://www.google.com/maps/search/?api=1&query=Emeralda+Resort+Ninh+Binh',

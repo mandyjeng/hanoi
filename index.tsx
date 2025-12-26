@@ -649,18 +649,73 @@ const ToolsView = ({ isSnoopy, isColorful, cardClass }: any) => {
   const [exchangeRate, setExchangeRate] = useState('760');
   const [vndInput, setVndInput] = useState('1000');
   
+  // Bookkeeping States
+  const [expenses, setExpenses] = useState<ExpenseItem[]>(() => {
+    const saved = localStorage.getItem('hanoi_expenses');
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [newItemName, setNewItemName] = useState('');
+  const [newItemAmount, setNewItemAmount] = useState('');
+  const [newItemCurrency, setNewItemCurrency] = useState<'VND' | 'TWD'>('TWD');
+
+  useEffect(() => {
+    localStorage.setItem('hanoi_expenses', JSON.stringify(expenses));
+  }, [expenses]);
+
   const rate = parseFloat(exchangeRate) || 0;
   const vnd = parseFloat(vndInput) || 0;
   const twdResult = rate > 0 ? (vnd / rate).toFixed(2) : '0.00';
 
+  const addExpense = () => {
+    if (!newItemName || !newItemAmount) return;
+    const amount = parseFloat(newItemAmount);
+    if (isNaN(amount)) return;
+
+    const newExpense: ExpenseItem = {
+      id: Date.now().toString(),
+      title: newItemName,
+      amount: amount,
+      currency: newItemCurrency,
+      date: new Date().toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' }),
+    };
+
+    setExpenses([newExpense, ...expenses]);
+    setNewItemName('');
+    setNewItemAmount('');
+  };
+
+  const removeExpense = (id: string) => {
+    setExpenses(expenses.filter(e => e.id !== id));
+  };
+
+  const clearAllExpenses = () => {
+    if (window.confirm('確定要清空所有記帳紀錄嗎？這項動作無法還原喔 🗑️')) {
+      setExpenses([]);
+    }
+  };
+
+  const totalTwd = useMemo(() => {
+    return expenses.reduce((sum, exp) => {
+      if (exp.currency === 'TWD') return sum + exp.amount;
+      return sum + (exp.amount / rate);
+    }, 0);
+  }, [expenses, rate]);
+
+  const copyToSheets = () => {
+    const header = "Date\tItem\tAmount\tCurrency\n";
+    const body = expenses.map(e => `${e.date}\t${e.title}\t${e.amount}\t${e.currency}`).join('\n');
+    navigator.clipboard.writeText(header + body).then(() => {
+      alert('已複製到剪貼簿！可以貼到 Google Sheets 囉 ✨');
+    });
+  };
+
   return (
     <div className="space-y-6 animate-fade-in">
+      {/* Exchange Tool */}
       <div className={`${cardClass} p-5 space-y-6`}>
         <h2 className="font-bold text-xl flex items-center gap-2">
           <Icons.Coins /> 匯率換算
         </h2>
-        
-        {/* Rate Setting Bar */}
         <div className="bg-[#f8f9fa] rounded-lg p-3 flex items-center gap-2 text-sm border border-gray-100">
            <span className="text-gray-400 whitespace-nowrap">匯率設定 (1 TWD =)</span>
            <input 
@@ -671,8 +726,6 @@ const ToolsView = ({ isSnoopy, isColorful, cardClass }: any) => {
            />
            <span className="text-gray-400">VND</span>
         </div>
-
-        {/* Main Conversion Area */}
         <div className="flex flex-col gap-8 py-4">
            <div className="flex items-center justify-between gap-4">
               <div className="flex-1 space-y-1">
@@ -686,13 +739,11 @@ const ToolsView = ({ isSnoopy, isColorful, cardClass }: any) => {
                     />
                  </div>
               </div>
-              
               <div className="flex-shrink-0 pt-4">
                  <div className={`p-2 rounded-full border border-gray-200 text-gray-400`}>
                    <Icons.ArrowLeftRight />
                  </div>
               </div>
-
               <div className="flex-1 space-y-1 text-right">
                  <div className="text-xs font-bold text-gray-400">新台幣 (TWD)</div>
                  <div className="flex items-baseline justify-end gap-2 py-1">
@@ -704,6 +755,99 @@ const ToolsView = ({ isSnoopy, isColorful, cardClass }: any) => {
               </div>
            </div>
         </div>
+      </div>
+
+      {/* Bookkeeping Tool */}
+      <div className={`${cardClass} p-5 space-y-4`}>
+        <div className="flex justify-between items-center">
+           <h2 className="font-bold text-xl flex items-center gap-2">
+            <Icons.Wallet /> 記帳
+          </h2>
+          <div className="text-right">
+            <span className="text-xs font-bold opacity-40">總計: </span>
+            <span className="text-[#FF6B6B] font-black">${Math.round(totalTwd).toLocaleString()}</span>
+            <span className="text-[10px] font-bold opacity-40 ml-1">TWD</span>
+          </div>
+        </div>
+
+        {/* Input Form Area */}
+        <div className="border-2 border-dashed border-gray-200 rounded-2xl p-4 space-y-3">
+          <input 
+            type="text"
+            placeholder="項目名稱 (e.g. 晚餐)"
+            value={newItemName}
+            onChange={(e) => setNewItemName(e.target.value)}
+            className="w-full p-3 rounded-lg border-2 border-gray-200 focus:border-[#4ECDC4] outline-none text-sm font-medium"
+          />
+          <div className="flex gap-2">
+            <input 
+              type="number"
+              placeholder="金額"
+              value={newItemAmount}
+              onChange={(e) => setNewItemAmount(e.target.value)}
+              className="flex-1 p-3 rounded-lg border-2 border-gray-200 focus:border-[#4ECDC4] outline-none text-sm font-medium"
+            />
+            <select 
+              value={newItemCurrency}
+              onChange={(e) => setNewItemCurrency(e.target.value as any)}
+              className="w-24 p-3 rounded-lg border-2 border-gray-200 focus:border-[#4ECDC4] outline-none text-sm font-bold bg-white"
+            >
+              <option value="TWD">TWD</option>
+              <option value="VND">VND</option>
+            </select>
+          </div>
+          <button 
+            onClick={addExpense}
+            className="w-full bg-[#2d2d2d] text-white py-3 rounded-xl font-black text-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-all shadow-[2px_4px_0_rgba(255,107,107,0.4)]"
+          >
+            <Icons.Plus /> 新增
+          </button>
+        </div>
+
+        {/* Expense List */}
+        <div className="space-y-4 py-2">
+          {expenses.length === 0 ? (
+            <div className="text-center py-8 opacity-20 italic text-sm">還沒有支出記錄喔 🍙</div>
+          ) : (
+            expenses.map(exp => (
+              <div key={exp.id} className="flex justify-between items-center group">
+                <div className="flex-1">
+                  <div className="font-black text-sm">{exp.title}</div>
+                  <div className="text-[10px] text-gray-400 font-bold">{exp.date}</div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="text-right">
+                    <span className="font-black text-sm">{exp.amount.toLocaleString()}</span>
+                    <span className="text-[10px] font-bold opacity-40 ml-1 uppercase">{exp.currency}</span>
+                  </div>
+                  <button 
+                    onClick={() => removeExpense(exp.id)}
+                    className="opacity-0 group-hover:opacity-100 text-gray-300 hover:text-red-400 transition-all p-1"
+                  >
+                    <Icons.Trash2 />
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        {expenses.length > 0 && (
+          <div className="flex flex-col gap-2 mt-4">
+            <button 
+              onClick={copyToSheets}
+              className="w-full p-3 border-2 border-dashed border-[#4ECDC4] rounded-xl text-[11px] font-black text-[#4ECDC4] flex items-center justify-center gap-2 hover:bg-[#4ECDC4]/5 transition-colors"
+            >
+              <Icons.Clipboard /> 複製資料 (貼上至 Google Sheets)
+            </button>
+            <button 
+              onClick={clearAllExpenses}
+              className="w-full p-3 border-2 border-dashed border-gray-300 rounded-xl text-[11px] font-black text-gray-400 flex items-center justify-center gap-2 hover:bg-red-50 hover:text-red-400 hover:border-red-200 transition-colors"
+            >
+              <Icons.Trash2 /> 清空所有紀錄
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

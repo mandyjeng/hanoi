@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   return {
     // 改用相對路徑 './'，避免 GitHub Pages 路徑解析失敗
-    base: './', 
+    base: '/hanoi/',
     plugins: [react()],
     server: {
       port: 3000,

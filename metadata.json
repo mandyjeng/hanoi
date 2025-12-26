@@ -1,0 +1,9 @@
+{
+  "name": "Hanoi 2026 Travel_1226版本",
+  "description": "A Japanese-style, mobile-first travel itinerary app for Vietnam Hanoi (Jan 2026). Features theme switching, itinerary management, and AI travel assistance.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}

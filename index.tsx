@@ -625,27 +625,63 @@ const GuideView = ({ isSnoopy, isColorful, cardClass }: any) => {
 };
 
 const ToolsView = ({ isSnoopy, isColorful, cardClass }: any) => {
-  const [twd, setTwd] = useState('1');
-  const vnd = (parseFloat(twd) || 0) * 780;
+  const [exchangeRate, setExchangeRate] = useState('760');
+  const [vndInput, setVndInput] = useState('1000');
+  
+  const rate = parseFloat(exchangeRate) || 0;
+  const vnd = parseFloat(vndInput) || 0;
+  const twdResult = rate > 0 ? (vnd / rate).toFixed(2) : '0.00';
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className={`${cardClass} p-5 space-y-4`}>
-        <h2 className="font-bold flex items-center gap-2">
-          <Icons.Coins /> 簡易換算 (1 TWD ≈ 780 VND)
+      <div className={`${cardClass} p-5 space-y-6`}>
+        <h2 className="font-bold text-xl flex items-center gap-2">
+          <Icons.Coins /> 匯率換算
         </h2>
-        <div className="space-y-2">
-          <label className="text-xs opacity-60">台幣 TWD</label>
-          <input 
-            type="number" 
-            value={twd}
-            onChange={(e) => setTwd(e.target.value)}
-            className={`w-full p-3 rounded-lg border-2 ${isColorful ? 'border-[#FFD93D]' : 'border-[#2d2d2d]'} font-bold outline-none`}
-          />
+        
+        {/* Rate Setting Bar */}
+        <div className="bg-[#f8f9fa] rounded-lg p-3 flex items-center gap-2 text-sm border border-gray-100">
+           <span className="text-gray-400 whitespace-nowrap">匯率設定 (1 TWD =)</span>
+           <input 
+             type="number"
+             value={exchangeRate}
+             onChange={(e) => setExchangeRate(e.target.value)}
+             className="bg-transparent border-b-2 border-gray-300 w-16 text-center font-bold focus:border-[#4ECDC4] outline-none"
+           />
+           <span className="text-gray-400">VND</span>
         </div>
-        <div className="pt-2">
-          <div className="text-xs opacity-60 mb-1">越南盾 VND</div>
-          <div className="text-2xl font-bold text-[#FF6B6B]">{vnd.toLocaleString()}</div>
+
+        {/* Main Conversion Area */}
+        <div className="flex flex-col gap-8 py-4">
+           <div className="flex items-center justify-between gap-4">
+              <div className="flex-1 space-y-1">
+                 <div className="text-xs font-bold text-gray-400">越南盾 (VND)</div>
+                 <div className="relative">
+                    <input 
+                      type="number"
+                      value={vndInput}
+                      onChange={(e) => setVndInput(e.target.value)}
+                      className="w-full text-3xl font-black bg-transparent border-b-2 border-[#4ECDC4] py-1 outline-none"
+                    />
+                 </div>
+              </div>
+              
+              <div className="flex-shrink-0 pt-4">
+                 <div className={`p-2 rounded-full border border-gray-200 text-gray-400`}>
+                   <Icons.ArrowLeftRight />
+                 </div>
+              </div>
+
+              <div className="flex-1 space-y-1 text-right">
+                 <div className="text-xs font-bold text-gray-400">新台幣 (TWD)</div>
+                 <div className="flex items-baseline justify-end gap-2 py-1">
+                    <span className="text-gray-300 text-xl">=</span>
+                    <span className="text-4xl font-black text-[#8E97A1]">
+                       {twdResult}
+                    </span>
+                 </div>
+              </div>
+           </div>
         </div>
       </div>
 

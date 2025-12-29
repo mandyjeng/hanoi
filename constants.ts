@@ -85,6 +85,14 @@ export const DEFAULT_PACKING_LIST: PackingItem[] = [
 
 export const ALL_SPOTS: SpotLocation[] = [
   {
+    name: 'G.U 19 Steak',
+    category: Category.FOOD,
+    description: '河內高評價牛排館，提供澳洲與美國頂級牛排，肉質鮮美且價格親民。',
+    tags: ['必吃', '牛排', '高CP值', '已預約'],
+    googleMapLink: 'https://www.google.com/maps/place/G.U+19+Steak/data=!4m2!3m1!1s0x0:0x31133074dd8347c0?sa=X&ved=1t:2428&ictx=111',
+    address: '19 P. Phan Bội Châu, Hoàn Kiếm'
+  },
+  {
     name: 'Cilantro Restaurant',
     category: Category.FOOD,
     description: 'PARKROYAL 飯店內餐廳，提供精緻越式與國際料理。Titanium 會員享有 25% 折扣。',
@@ -135,7 +143,7 @@ export const ALL_SPOTS: SpotLocation[] = [
     name: 'La Badiane',
     category: Category.FOOD,
     description: '河內頂級法式料理，融合越南在地食材。環境典雅，是精緻午餐與慶祝的首選。',
-    tags: ['法式料理', '精緻', '米其林推薦'],
+    tags: ['法式料理', '精緻', '米其林推薦', '已預約'],
     googleMapLink: 'https://maps.app.goo.gl/JkTRv3Max75sgHeD8',
     address: '10 Nam Ngư, Hoàn Kiếm'
   },
@@ -261,7 +269,7 @@ export const ITINERARY_DATA: DayItinerary[] = [
       },
       {
         id: 'd1-5', time: '20:30', category: Category.FOOD, name: '飯店週邊美食 (步行可達)', 
-        description: '若想外出覓食，推薦：Savvy Artisanal (300m)、Not so Early (700m) 或 Sushi House (700m)。',
+        description: '若想外出覓食，推薦：Savvy Artisanal (300m)、Not so Early (700m) 或 Sushi House (700m) 。',
         tags: ['美食探索', '西湖區'], locationUrl: ''
       }
     ],
@@ -383,7 +391,7 @@ export const ITINERARY_DATA: DayItinerary[] = [
       },
       {
         id: 'd3-3', time: '14:00', category: Category.ACTIVITY, name: '渡假村活動體驗', 
-        description: '參加渡假村內的各式活動，如腳踏車環湖、戶外游泳池或傳統工藝體驗。',
+        description: '參加渡假村內的各式活動，如腳踏車環湖、戶外游泳池 or 傳統工藝體驗。',
         tags: ['渡假', '悠閒', '活動'], 
         locationUrl: 'https://www.google.com/maps/search/?api=1&query=Emeralda+Resort+Ninh+Binh',
         websiteUrl: 'https://emeraldaresort.com/activities/'
@@ -448,27 +456,39 @@ export const ITINERARY_DATA: DayItinerary[] = [
         travelTime: '飯店出發約 20分'
       },
       {
-        id: 'd4-5', time: '18:30', category: Category.FOOD, name: '晚餐：Mr Bảy Miền Tây (Bánh Xèo)', 
-        description: '享用米其林推薦的越南煎餅，層次分明且清爽不油膩。',
-        tags: ['必吃', '越南煎餅', '米其林'], locationUrl: 'https://maps.app.goo.gl/JvWRGTuAf26XMvWQ8',
-        travelTime: '步行約 10分'
-      },
-      {
-        id: 'd4-6', time: '19:30', category: Category.SHOPPING, name: '老城區購物：Culcat & Ginkgo', 
-        description: '在富有設計感的服飾店挑選具備越南特色的創意服裝與伴手禮。',
-        tags: ['必逛', '設計服裝'], locationUrl: 'https://maps.app.goo.gl/ENKiwXrvywsk6yg18',
-        travelTime: '步行 5-10分'
+        id: 'd4-5', time: '18:30', category: Category.FOOD, name: '晚餐：G.U 19 Steak', 
+        description: '河內超人氣頂級牛排館。提供優質澳洲與美國牛排，氣氛極佳。建議點選布拉塔起司沙拉與澳洲紐約客牛排。',
+        tags: ['必吃', '牛排', '西式料理', '已預約'], locationUrl: 'https://www.google.com/maps/place/G.U+19+Steak/data=!4m2!3m1!1s0x0:0x31133074dd8347c0?sa=X&ved=1t:2428&ictx=111',
+        travelTime: '步行或 Grab 約 10分',
+        grabFare: '約 35,000 VND'
       }
     ],
     notes: [
       {
-        title: '當日行程與店家提醒',
+        title: 'G.U 19 Steak 菜單價格對照表 (VND -> TWD)',
+        type: 'dining',
+        items: [
+          '🥗 凱撒沙拉 (Caesar)：129K VND (約 $170)',
+          '🥗 布拉塔起司 (Burrata)：219K VND (約 $288)',
+          '🥣 奶油蘑菇湯 (Mushroom)：85K VND (約 $112)',
+          '🥣 海鮮巧達湯 (Seafood)：115K VND (約 $151)',
+          '🍝 肉醬義大利麵 (Bolognese)：159K VND (約 $209)',
+          '🍝 墨魚燉飯 (Black Ink)：225K VND (約 $296)',
+          '🥩 澳洲紐約客 (250g)：490K VND (約 $645)',
+          '🥩 澳洲肋眼牛排 (250g)：550K VND (約 $724)',
+          '🥩 澳洲菲力牛排 (200g)：590K VND (約 $776)',
+          '🥩 美國頂級肋眼 (300g)：1,150K VND (約 $1,513)',
+          '🐟 香煎鮭魚 (Salmon)：395K VND (約 $520)',
+          '🍰 提拉米蘇 (Tiramisu)：95K VND (約 $125)'
+        ]
+      },
+      {
+        title: '當日小撇步',
         type: 'info',
         items: [
+          '💳 G.U 19 Steak 支援信用卡支付。',
           '🏨 飯店活動網址：https://emeraldaresort.com/activities/',
-          '🛍️ Ginkgo：提供優質有機棉 T-shirt，圖案設計極具美感。',
-          '🛍️ Culcat：風格更偏向現代剪裁，質感優良。',
-          '💳 建議隨身攜帶小額現金，部分小吃店可能不支援刷卡。'
+          '🌙 慰勞大家的舟車勞頓'
         ]
       }
     ]
@@ -485,8 +505,8 @@ export const ITINERARY_DATA: DayItinerary[] = [
       },
       {
         id: 'd5-2', time: '12:30', category: Category.FOOD, name: '午餐：La Badiane', 
-        description: '於河內最負盛名的法式餐廳享用精緻料理。',
-        tags: ['必吃', '精緻法餐'], locationUrl: 'https://maps.app.goo.gl/JkTRv3Max75sgHeD8'
+        description: '於河內最負盛名的法式餐廳享用精緻料理應。',
+        tags: ['必吃', '精緻法餐', '已預約'], locationUrl: 'https://maps.app.goo.gl/JkTRv3Max75sgHeD8'
       },
       {
         id: 'd5-3', time: '14:30', category: Category.SHOPPING, name: '同春市場 (Dong Xuan Market)', 
@@ -506,7 +526,7 @@ export const ITINERARY_DATA: DayItinerary[] = [
     weather: { temp: '18°C', condition: '多雲', icon: '🌥️', clothing: '長袖外套' },
     spots: [
       {
-        id: 'd6-0', time: '09:30', category: Category.FOOD, name: '自由早晨：享受飯店或漫步西湖', 
+        id: 'd6-0', time: '09:30', category: Category.FOOD, name: '自由早晨：享受飯店 or 漫步西湖', 
         description: '今天不趕行程，在飯店享用早餐後，可以自由選擇想去的地方。',
         tags: ['悠閒', '自由探索'], locationUrl: ''
       },

@@ -108,6 +108,8 @@ const App = () => {
   }
 
   const tagColor = (tag: string) => {
+    if (tag.includes('已預約')) return isColorful ? 'bg-[#4CAF50] text-white ring-2 ring-white/30 shadow-[1px_1px_0_rgba(0,0,0,0.2)]' : 'bg-green-100 text-green-800 border border-green-200';
+    if (tag.includes('待預訂')) return isColorful ? 'bg-[#FF9800] text-white ring-2 ring-white/30 shadow-[1px_1px_0_rgba(0,0,0,0.2)]' : 'bg-orange-100 text-orange-800 border border-orange-200';
     if (tag.includes('必吃')) return isColorful ? 'bg-[#FF6B6B] text-white' : 'bg-yellow-100 text-yellow-800';
     if (tag.includes('必買')) return isColorful ? 'bg-[#FFD93D] text-[#5C4033]' : 'bg-red-100 text-red-800';
     if (tag.includes('必去') || tag.includes('必逛')) return isColorful ? 'bg-[#4ECDC4] text-white' : 'bg-blue-100 text-blue-800';

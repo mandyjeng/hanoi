@@ -80,7 +80,7 @@ export const DEFAULT_PACKING_LIST: PackingItem[] = [
   { id: '6', label: '盥洗用品', category: 'checked', checked: false, count: 1 },
   { id: '7', label: '萬用轉接頭', category: 'checked', checked: false, count: 1 },
   { id: '8', label: 'Marou 巧克力', category: 'shopping', checked: false, count: 5 },
-  { id: '9', label: '越南咖啡豆', category: 'shopping', checked: false, count: 2 },
+  { id: '9', label: '腰果', category: 'shopping', checked: false, count: 2 },
 ];
 
 export const ALL_SPOTS: SpotLocation[] = [
@@ -126,7 +126,7 @@ export const ALL_SPOTS: SpotLocation[] = [
     name: 'La Spa Hàng Bè',
     category: Category.MASSAGE,
     description: '河內評價極高的專業 SPA 按摩店，環境優雅舒適，提供多種放鬆療程。',
-    tags: ['必去', '放鬆', '需預約'],
+    tags: ['必去', '放鬆', '待預訂'],
     googleMapLink: 'https://www.google.com/maps/place/La+Spa+H%C3%A0ng+B%C3%A8/@21.0331252,105.8539806,16z/data=!4m9!3m8!1s0x3135ab95596d3a05:0xb2286e41fb7a32a3!5m2!4m1!1i2!8m2!3d21.0331252!4d105.8539806!16s%2Fg%2F11fl44zsc3?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D',
     address: '27 Hàng Bè, Hoàn Kiếm',
     website: 'https://laspas.vn/hang-be/'
@@ -278,9 +278,11 @@ export const ITINERARY_DATA: DayItinerary[] = [
         title: '飯店櫃檯 Checklist',
         type: 'info',
         items: [
-          '確認明日早餐供應時間。',
+          '確認房型是否升等',
+          '確認早餐供應時間。',
           '詢問櫃檯近期推薦的西湖區私藏美食。',
-          'Titanium 會員權益：Cilantro Restaurant 消費享 25% 優惠。'
+          'Titanium 會員權益：Cilantro Restaurant 消費享 25% 優惠。',
+          '請飯店櫃檯幫忙訂 1/6 Chả Cá Thăng Long 15:00 用餐。'
         ]
       },
       {
@@ -307,7 +309,7 @@ export const ITINERARY_DATA: DayItinerary[] = [
       {
         id: 'd2-1', time: '11:30', category: Category.MASSAGE, name: 'La Spa Hàng Bè 按摩', 
         description: '河內頂級 SPA 體驗。記得出示預約資訊。',
-        tags: ['必去', '放鬆', '需預約'], 
+        tags: ['必去', '放鬆', '待預訂'], 
         locationUrl: 'https://www.google.com/maps/place/La+Spa+H%C3%A0ng+B%C3%A8/@21.0331252,105.8539806,16z/data=!4m9!3m8!1s0x3135ab95596d3a05:0xb2286e41fb7a32a3!5m2!4m1!1i2!8m2!3d21.0331252!4d105.8539806!16s%2Fg%2F11fl44zsc3?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D',
         websiteUrl: 'https://laspas.vn/hang-be/',
         travelTime: '飯店出發約 20分'
@@ -315,7 +317,7 @@ export const ITINERARY_DATA: DayItinerary[] = [
       {
         id: 'd2-2', time: '15:00', category: Category.FOOD, name: 'Chả Cá Thăng Long (鱧魚鍋)', 
         description: '在熱氣騰騰的油鍋中翻炒薑黃魚塊。有兩間分店。營業時間：10:30-21:30。',
-        tags: ['必吃', '米其林', '預約15:00'], 
+        tags: ['必吃', '米其林', '待預訂'], 
         locationUrl: 'https://www.google.com/maps/place/6B+P.+%C4%90%C6%B0%E1%BB%9Dng+Th%C3%A0nh,+C%E1%BB%ADa+%C4%90%C3%B4ng,+Ho%C3%A0n+Ki%E1%BA%BFm,+H%C3%A0+N%E1%BB%99i+000084/@21.032937,105.8461542,1014m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3135abbddeac740f:0x1ed60ec67fc0e186!8m2!3d21.032937!4d105.8461542!16s%2Fg%2F11c27x37_2?entry=tts&g_ep=EgoyMDI0MDgyOC4wKgBIAVAD',
         websiteUrl: 'https://chacathanglong.com.vn/',
         travelTime: 'SPA 步行約 15分'
@@ -403,13 +405,6 @@ export const ITINERARY_DATA: DayItinerary[] = [
       }
     ],
     notes: [
-      {
-        title: '代訂任務',
-        type: 'checklist',
-        items: [
-          '請飯店櫃檯幫忙訂 Chả Cá Thăng Long 15:00 用餐。'
-        ]
-      },
       {
         title: 'Emeralda 渡假村貼心提醒',
         type: 'info',
